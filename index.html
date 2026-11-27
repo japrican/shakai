@@ -1387,5 +1387,16 @@ function startRangeTest(){if(!guard())return;const S=selUnits();if(!S.length)ret
 go('sHome');
 if(trialOver())openBuy();
 </script>
+<script>/* アプリ内ブラウザ（Instagram・TikTok・LINEなど）で開いたときの案内 */
+(function(){try{var u=navigator.userAgent||'';if(!/Instagram|FBAN|FBAV|Line\/|TikTok|musical_ly|BytedanceWebview|Twitter/i.test(u))return;if(sessionStorage.getItem('inapp_hide'))return;
+var ios=/iPhone|iPad|iPod/.test(u),app=/Instagram/i.test(u)?'Instagram':/Line\//i.test(u)?'LINE':/TikTok|musical_ly|Bytedance/i.test(u)?'TikTok':'アプリ',br=ios?'Safari':'Chrome';
+var d=document.createElement('div');d.id='inappBar';d.setAttribute('role','status');
+d.style.cssText='position:fixed;left:8px;right:8px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:2147483000;background:#3c3c3c;color:#fff;border-radius:16px;padding:12px 14px;box-shadow:0 8px 24px rgba(0,0,0,.25);font:700 13px/1.6 "BIZ UDPGothic","Hiragino Sans",sans-serif;max-width:520px;margin:0 auto';
+d.innerHTML='<div style="display:flex;gap:8px;align-items:flex-start"><div style="flex:1">今は'+app+'の中で開いています。無料体験や購入の記録を残すため、<b style="color:#ffc800">'+br+'で開き直して</b>ください。<br><span style="opacity:.8;font-size:12px">右上（または右下）の「…」→「ブラウザで開く」でも開けます。</span></div><button id="inappX" aria-label="とじる" style="flex:none;background:none;border:0;color:#fff;font-size:20px;line-height:1;padding:0 2px;cursor:pointer">×</button></div><button id="inappCp" style="margin-top:8px;width:100%;min-height:40px;border:0;border-radius:12px;background:#ffc800;color:#3c3c3c;font:800 14px sans-serif;cursor:pointer">このページのリンクをコピー</button>';
+document.body.appendChild(d);
+document.getElementById('inappX').onclick=function(){d.remove();try{sessionStorage.setItem('inapp_hide','1')}catch(e){}};
+document.getElementById('inappCp').onclick=function(){var b=this,l=location.href;if(navigator.clipboard)navigator.clipboard.writeText(l).then(function(){b.textContent='コピーしました！'+br+'に貼りつけて開いてね'},function(){b.textContent=l});else b.textContent=l};
+}catch(e){}})();</script>
+
 </body>
 </html>
